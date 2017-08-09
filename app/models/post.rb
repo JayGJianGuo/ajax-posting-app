@@ -9,5 +9,10 @@ class Post < ApplicationRecord
     self.likes.where( :user_id => user.id).first
   end
 
+  has_many :collections, :dependent => :destroy
+  has_many :collected_users, :through => :collections, :source => :user
 
+  def find_collection(user)
+    self.collections.where( :user_id => user.id ).first
+  end
 end

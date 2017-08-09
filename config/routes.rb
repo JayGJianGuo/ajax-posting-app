@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     member do
       post "like" => "posts#like"
       post "unlike" => "posts#unlike"
+      post "collection" => "posts#collection"
+      post "uncollecte" => "posts#uncollecte"
     end
   end
 end

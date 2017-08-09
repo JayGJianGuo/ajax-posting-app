@@ -31,8 +31,23 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     like = @post.find_like(current_user)
     like.destroy
-    
+
     render "like"
+  end
+
+  def collection
+    @post = Post.find(params[:id])
+    unless collection = @post.find_collection(current_user)
+      Collection.create( :user => current_user, :post => @post )
+    end
+  end
+
+  def uncollecte
+    @post = Post.find(params[:id])
+    collection = @post.find_collection(current_user)
+    collection.destroy
+
+    render "collection"
   end
 
   private
