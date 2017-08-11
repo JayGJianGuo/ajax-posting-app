@@ -15,4 +15,7 @@ class Post < ApplicationRecord
   def find_collection(user)
     self.collections.where( :user_id => user.id ).first
   end
+
+  belongs_to :category, :optional => true
+
 end
