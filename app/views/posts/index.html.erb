@@ -22,15 +22,17 @@
      evt.preventDefault();
      // this 是个特别的变量，代表触发事件的元素。使用 attr 可以读取元素的属性，这里要拿到超连结的网址
      var url = $(this).attr("href");
+     var that = this;
 
      // 送出 Ajax
      $.ajax({
        url: url,
        method: 'DELETE',
        dataType: 'json', // 要求服务器回传 json
-              success: function(data){   // data 就是服务器回传的 JSON 资料
-                $("#post-" + data["id"]).remove();
-              }     })
+        success: function(data){   // data 就是服务器回传的 JSON 资料
+          $(that).closest(".panel").remove();
+        }
+      })
    })
 
      // 记下目前画面最小的贴文 ID
@@ -62,9 +64,9 @@
       dataType: "json",
       success: function(data){
         if ( data["flag_at"] ) {
-          $("#post-flag-" + data["id"]).html(data["flag_at"]);
+          $(that).closest("label").find("span").html(data["flag_at"]);
         } else {
-          $("#post-flag-" + data["id"]).html("");
+          $(that).closest("label").find("span").html("");
         }
       }
     });
